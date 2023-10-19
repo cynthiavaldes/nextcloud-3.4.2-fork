@@ -178,6 +178,9 @@ GeneralSettings::GeneralSettings(QWidget *parent)
     // About legal notice
     connect(_ui->legalNoticeButton, &QPushButton::clicked, this, &GeneralSettings::slotShowLegalNotice);
 
+    // theme selection
+    connect(_ui->themeButton, &QPushButton::clicked, this, &GeneralSettings::customizeTheme);
+
     loadMiscSettings();
     // updater info now set in: customizeStyle
     //slotUpdateInfo();
@@ -223,6 +226,7 @@ GeneralSettings::GeneralSettings(QWidget *parent)
 
     connect(_ui->ignoredFilesButton, &QAbstractButton::clicked, this, &GeneralSettings::slotIgnoreFilesEditor);
     connect(_ui->debugArchiveButton, &QAbstractButton::clicked, this, &GeneralSettings::slotCreateDebugArchive);
+
 
     // accountAdded means the wizard was finished and the wizard might change some options.
     connect(AccountManager::instance(), &AccountManager::accountAdded, this, &GeneralSettings::loadMiscSettings);
@@ -442,6 +446,67 @@ void GeneralSettings::slotStyleChanged()
     customizeStyle();
 }
 
+void GeneralSettings::customizeTheme()
+{
+    QDir filename = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    //const auto filename = QFileDialog::getExistingDirectory(this);
+    if (filename.isEmpty()) {
+        return;
+    }
+
+    QDir tempFilename = filename;
+    QDir dir =QDir("~/theme");
+
+    dir.mkdir("black");
+    dir.cd("black");
+    tempFilename.cd("black");
+    QStringList files = dir.entryList(QDir::Files);
+    foreach(QString name, files) {
+        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
+    }
+    dir =QDir("~/theme");
+    tempFilename = filename;
+
+    dir.mkdir("colored");
+    dir.cd("colored");
+    tempFilename.cd("colored");
+    files = dir.entryList(QDir::Files);
+    foreach(QString name, files) {
+        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
+    }
+    dir =QDir("~/theme");
+    tempFilename = filename;
+
+    dir.mkdir("Style");
+    dir.cd("Style");
+    tempFilename.cd("Style");
+    files = dir.entryList(QDir::Files);
+    foreach(QString name, files) {
+        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
+    }
+    dir =QDir("~/theme");
+    tempFilename = filename;
+
+    dir.mkdir("white");
+    dir.cd("white");
+    tempFilename.cd("white");
+    files = dir.entryList(QDir::Files);
+    foreach(QString name, files) {
+        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
+    }
+    dir =QDir("~/theme");
+    tempFilename = filename;
+
+    files = filename.entryList(QDir::Files);
+
+    foreach(QString name, files) {
+        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
+    }
+
+    //createDebugArchive(filename);
+    //QMessageBox::information(this, tr("Debug Archive Created"), tr("Debug archive is created at %1").arg(filename));
+}
+
 void GeneralSettings::customizeStyle()
 {
     // setup about section
@@ -456,5 +521,7 @@ void GeneralSettings::customizeStyle()
     _ui->updatesGroupBox->setVisible(false);
 #endif
 }
+
+
 
 } // namespace OCC
