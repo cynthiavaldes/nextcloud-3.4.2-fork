@@ -97,6 +97,7 @@ public slots:
 private slots:
     void slotUnpauseAllFolders();
     void slotPauseAllFolders();
+    void openCustomizationWindow();
 
 private:
     void setPauseOnAllFoldersHelper(bool pause);
