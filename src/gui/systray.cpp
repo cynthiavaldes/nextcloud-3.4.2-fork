@@ -24,6 +24,10 @@
 #include "configfile.h"
 #include "accessmanager.h"
 
+#include <QDesktopServices>
+#include <QUrl>
+#include <QMessageBox>
+
 #include <QCursor>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -107,6 +111,17 @@ Systray::Systray()
 
     auto pauseAction = contextMenu->addAction(tr("Pause sync"), this, &Systray::slotPauseAllFolders);
     auto resumeAction = contextMenu->addAction(tr("Resume sync"), this, &Systray::slotUnpauseAllFolders);
+
+    // Web version link option
+    contextMenu->addAction(tr("Open Web Version"), this, []{
+        QDesktopServices::openUrl(QUrl("https://capstone-cloud2.cs.fiu.edu/index.php/apps/dashboard/"));
+    });
+    // FIU Canvas portal option
+    contextMenu->addAction(tr("Open FIU Canvas Portal"), this, []{
+        QDesktopServices::openUrl(QUrl("https://canvas.fiu.edu/"));
+    });
+    contextMenu->addAction(tr("Customization"), this, &Systray::openCustomizationWindow);
+
     contextMenu->addAction(tr("Settings"), this, &Systray::openSettings);
     contextMenu->addAction(tr("Exit %1").arg(Theme::instance()->appNameGUI()), this, &Systray::shutdown);
     setContextMenu(contextMenu);
@@ -517,5 +532,13 @@ QNetworkAccessManager* AccessManagerFactory::create(QObject *parent)
 {
     return new AccessManager(parent);
 }
+
+void Systray::openCustomizationWindow() {
+    // For now, we'll simply show a message box as a placeholder for the customization window
+
+    QMessageBox::information(nullptr, tr("Customization"), tr("This is where the customization window will be."));
+}
+
+
 
 } // namespace OCC
