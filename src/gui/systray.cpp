@@ -27,6 +27,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QMessageBox>
+#include <QVBoxLayout>
+#include <QPushButton>
 
 #include <QCursor>
 #include <QGuiApplication>
@@ -109,17 +111,18 @@ Systray::Systray()
         contextMenu->addAction(tr("Open main dialog"), this, &Systray::openMainDialog);
     }
 
+    auto studentResourcesAction = contextMenu->addAction(tr("Student Resources"), this, &Systray::openStudentResources);
+
+      setContextMenu(contextMenu);
+
     auto pauseAction = contextMenu->addAction(tr("Pause sync"), this, &Systray::slotPauseAllFolders);
     auto resumeAction = contextMenu->addAction(tr("Resume sync"), this, &Systray::slotUnpauseAllFolders);
 
     // Web version link option
-    contextMenu->addAction(tr("Open Web Version"), this, []{
+    contextMenu->addAction(tr("Open NextCloud on Browser"), this, []{
         QDesktopServices::openUrl(QUrl("https://capstone-cloud2.cs.fiu.edu/index.php/apps/dashboard/"));
     });
-    // FIU Canvas portal option
-    contextMenu->addAction(tr("Open FIU Canvas Portal"), this, []{
-        QDesktopServices::openUrl(QUrl("https://canvas.fiu.edu/"));
-    });
+
     contextMenu->addAction(tr("Customization"), this, &Systray::openCustomizationWindow);
 
     contextMenu->addAction(tr("Settings"), this, &Systray::openSettings);
@@ -539,6 +542,64 @@ void Systray::openCustomizationWindow() {
     QMessageBox::information(nullptr, tr("Customization"), tr("This is where the customization window will be."));
 }
 
+void Systray::openStudentResources()
+{
+    // Create a new window with buttons for each link
+    QWidget *window = new QWidget;
+    QVBoxLayout *layout = new QVBoxLayout;
 
+    QPushButton *portalButton = new QPushButton("FIU Portal");
+    QPushButton *emailButton = new QPushButton("MyFIU Email");
+    QPushButton *calendarButton = new QPushButton("MyFIU Calendar");
+    QPushButton *canvasButton = new QPushButton("MyFIU Canvas");
+
+    // Set styles
+    QString buttonStyle = "QPushButton { background-color: #4CAF50; color: white; border: none; padding: 15px; border-radius: 10px; }";
+    portalButton->setStyleSheet(buttonStyle);
+    emailButton->setStyleSheet(buttonStyle);
+    calendarButton->setStyleSheet(buttonStyle);
+    canvasButton->setStyleSheet(buttonStyle);
+
+    // Set fonts
+    QFont buttonFont("Arial", 14, QFont::Bold);
+    portalButton->setFont(buttonFont);
+    emailButton->setFont(buttonFont);
+    calendarButton->setFont(buttonFont);
+    canvasButton->setFont(buttonFont);
+
+    // Add buttons to layout
+    layout->addWidget(portalButton);
+    layout->addWidget(emailButton);
+    layout->addWidget(calendarButton);
+    layout->addWidget(canvasButton);
+
+    window->setLayout(layout);
+
+    // Connect buttons to web links
+    connect(portalButton, &QPushButton::clicked, this, []{
+        QDesktopServices::openUrl(QUrl("https://my.fiu.edu/"));
+    });
+    connect(emailButton, &QPushButton::clicked, this, []{
+        QDesktopServices::openUrl(QUrl("https://outlook.office365.com/mail/"));
+    });
+    connect(calendarButton, &QPushButton::clicked, this, []{
+        QDesktopServices::openUrl(QUrl("https://outlook.office365.com/calendar/view/month"));
+    });
+    connect(canvasButton, &QPushButton::clicked, this, []{
+        QDesktopServices::openUrl(QUrl("https://canvas.fiu.edu/"));
+    });
+
+    // Customize window appearance
+    window->setStyleSheet("background-color: #FFFFFF;");
+    window->setMinimumSize(400, 300);
+
+    // Set window position at the top-right corner
+    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
+    int x = screenGeometry.width() - window->width();
+    window->move(x, 0);
+
+    // Show the window
+    window->show();
+}
 
 } // namespace OCC
