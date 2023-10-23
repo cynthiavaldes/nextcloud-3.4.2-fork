@@ -29,6 +29,7 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QLabel>
 
 #include <QCursor>
 #include <QGuiApplication>
@@ -111,7 +112,7 @@ Systray::Systray()
         contextMenu->addAction(tr("Open main dialog"), this, &Systray::openMainDialog);
     }
 
-    auto studentResourcesAction = contextMenu->addAction(tr("Student Resources"), this, &Systray::openStudentResources);
+   auto studentResourcesAction = contextMenu->addAction(tr("Student Resources"), this, &Systray::openStudentResources);
 
       setContextMenu(contextMenu);
 
@@ -122,7 +123,6 @@ Systray::Systray()
     contextMenu->addAction(tr("Open NextCloud on Browser"), this, []{
         QDesktopServices::openUrl(QUrl("https://capstone-cloud2.cs.fiu.edu/index.php/apps/dashboard/"));
     });
-
     contextMenu->addAction(tr("Customization"), this, &Systray::openCustomizationWindow);
 
     contextMenu->addAction(tr("Settings"), this, &Systray::openSettings);
@@ -537,9 +537,42 @@ QNetworkAccessManager* AccessManagerFactory::create(QObject *parent)
 }
 
 void Systray::openCustomizationWindow() {
-    // For now, we'll simply show a message box as a placeholder for the customization window
+    QWidget *customWindow = new QWidget;
+    QVBoxLayout *customLayout = new QVBoxLayout;
+    //QLabel customLabel = new QLabel;
 
-    QMessageBox::information(nullptr, tr("Customization"), tr("This is where the customization window will be."));
+    QPushButton *applyButton = new QPushButton("Apply");
+    QPushButton *resetButton = new QPushButton("Reset");
+
+    QString customButton = "QPushButton { background-color: #EFEFEF; color: black; border: 5px; padding: 5px; border-radius: 5px; }";
+    applyButton->setStyleSheet(customButton);
+    resetButton->setStyleSheet(customButton);
+
+    QFont customButtonFont("Ubuntu Regular", 12);
+    applyButton->setFont(customButtonFont);
+    resetButton->setFont(customButtonFont);
+
+    customLayout->addWidget(applyButton);
+    customLayout->setAlignment(applyButton, Qt::AlignBottom | Qt::AlignRight);
+    customLayout->addWidget(resetButton);
+    customLayout->setAlignment(resetButton, Qt::AlignBottom | Qt::AlignLeft);
+
+    applyButton->setFixedWidth(20);
+    resetButton->setFixedWidth(20);
+
+    customWindow->setLayout(customLayout);
+
+    // Customize window appearance
+    customWindow->setStyleSheet("background-color: #EFEFEF;");
+    customWindow->setMinimumSize(304, 542);
+
+    // Set window position at the top-right corner
+    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
+    int x = screenGeometry.width() - customWindow->width();
+    customWindow->move(x, 0);
+
+    // Show the window
+    customWindow->show();
 }
 
 void Systray::openStudentResources()
@@ -547,31 +580,49 @@ void Systray::openStudentResources()
     // Create a new window with buttons for each link
     QWidget *window = new QWidget;
     QVBoxLayout *layout = new QVBoxLayout;
+    QLabel *label = new QLabel;
 
+    //  Label Customization
+    QFont labelFont("Ubuntu Regular", 24, QFont::Bold);
+    label->setText("FIU");
+    label->setAlignment(Qt::AlignHCenter);
+    label->setStyleSheet("QLabel { background-color: black; color: white;");
+    label->setFont(labelFont);
+    label->setFixedHeight(30);
+
+    //  Button customization
     QPushButton *portalButton = new QPushButton("FIU Portal");
     QPushButton *emailButton = new QPushButton("MyFIU Email");
     QPushButton *calendarButton = new QPushButton("MyFIU Calendar");
     QPushButton *canvasButton = new QPushButton("MyFIU Canvas");
 
-    // Set styles
-    QString buttonStyle = "QPushButton { background-color: #4CAF50; color: white; border: none; padding: 15px; border-radius: 10px; }";
+    QString buttonStyle = "QPushButton { background-color: #EFEFEF; color: black; border: none; padding: 10px; border-radius: 20px; }";
     portalButton->setStyleSheet(buttonStyle);
     emailButton->setStyleSheet(buttonStyle);
     calendarButton->setStyleSheet(buttonStyle);
     canvasButton->setStyleSheet(buttonStyle);
 
     // Set fonts
-    QFont buttonFont("Arial", 14, QFont::Bold);
+    QFont buttonFont("Ubuntu Regular", 12, QFont::Bold);
     portalButton->setFont(buttonFont);
     emailButton->setFont(buttonFont);
     calendarButton->setFont(buttonFont);
     canvasButton->setFont(buttonFont);
 
-    // Add buttons to layout
+    // Add widgets to layout
+    layout->addWidget(label);
     layout->addWidget(portalButton);
+    layout->setAlignment(portalButton, Qt::AlignHCenter);
     layout->addWidget(emailButton);
+    layout->setAlignment(emailButton, Qt::AlignHCenter);
     layout->addWidget(calendarButton);
+    layout->setAlignment(calendarButton, Qt::AlignHCenter);
     layout->addWidget(canvasButton);
+    layout->setAlignment(canvasButton, Qt::AlignHCenter);
+    portalButton->setFixedWidth(300);
+    emailButton->setFixedWidth(300);
+    calendarButton->setFixedWidth(300);
+    canvasButton->setFixedWidth(300);
 
     window->setLayout(layout);
 
@@ -590,7 +641,7 @@ void Systray::openStudentResources()
     });
 
     // Customize window appearance
-    window->setStyleSheet("background-color: #FFFFFF;");
+    window->setStyleSheet("background-color: #081F3F;");
     window->setMinimumSize(400, 300);
 
     // Set window position at the top-right corner
@@ -601,5 +652,7 @@ void Systray::openStudentResources()
     // Show the window
     window->show();
 }
+
+
 
 } // namespace OCC
