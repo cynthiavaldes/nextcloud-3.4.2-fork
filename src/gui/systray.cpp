@@ -23,6 +23,7 @@
 #include "tray/unifiedsearchresultimageprovider.h"
 #include "configfile.h"
 #include "accessmanager.h"
+#include "CustomizationWindow.h"
 
 #include <QDesktopServices>
 #include <QUrl>
@@ -30,6 +31,8 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QApplication>
+#include <QGuiApplication>
 
 #include <QCursor>
 #include <QGuiApplication>
@@ -537,42 +540,8 @@ QNetworkAccessManager* AccessManagerFactory::create(QObject *parent)
 }
 
 void Systray::openCustomizationWindow() {
-    QWidget *customWindow = new QWidget;
-    QVBoxLayout *customLayout = new QVBoxLayout;
-    //QLabel customLabel = new QLabel;
-
-    QPushButton *applyButton = new QPushButton("Apply");
-    QPushButton *resetButton = new QPushButton("Reset");
-
-    QString customButton = "QPushButton { background-color: #EFEFEF; color: black; border: 5px; padding: 5px; border-radius: 5px; }";
-    applyButton->setStyleSheet(customButton);
-    resetButton->setStyleSheet(customButton);
-
-    QFont customButtonFont("Ubuntu Regular", 12);
-    applyButton->setFont(customButtonFont);
-    resetButton->setFont(customButtonFont);
-
-    customLayout->addWidget(applyButton);
-    customLayout->setAlignment(applyButton, Qt::AlignBottom | Qt::AlignRight);
-    customLayout->addWidget(resetButton);
-    customLayout->setAlignment(resetButton, Qt::AlignBottom | Qt::AlignLeft);
-
-    applyButton->setFixedWidth(20);
-    resetButton->setFixedWidth(20);
-
-    customWindow->setLayout(customLayout);
-
-    // Customize window appearance
-    customWindow->setStyleSheet("background-color: #EFEFEF;");
-    customWindow->setMinimumSize(304, 542);
-
-    // Set window position at the top-right corner
-    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
-    int x = screenGeometry.width() - customWindow->width();
-    customWindow->move(x, 0);
-
-    // Show the window
-    customWindow->show();
+    CustomizationWindow *window = new CustomizationWindow(static_cast<QWidget*>(QApplication::activeWindow()));
+    window->show();
 }
 
 void Systray::openStudentResources()

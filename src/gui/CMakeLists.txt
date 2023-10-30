@@ -40,6 +40,7 @@ set(client_UI_SRCS
     passwordinputdialog.ui
     proxyauthdialog.ui
     mnemonicdialog.ui
+    CustomizationWindow.ui
     UserStatusSelector.qml
     UserStatusSelectorDialog.qml
     tray/ActivityActionButton.qml
@@ -126,6 +127,8 @@ set(client_SRCS
     userstatusselectormodel.cpp
     emojimodel.cpp
     fileactivitylistmodel.cpp
+    CustomizationWindow.h
+    CustomizationWindow.cpp
     tray/svgimageprovider.cpp
     tray/syncstatussummary.cpp
     tray/activitydata.cpp
