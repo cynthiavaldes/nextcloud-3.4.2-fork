@@ -65,10 +65,10 @@ void WelcomePage::styleSlideShow()
     const auto wizardTalkIconFileName = theme->isBranded() ? Theme::hidpiFileName("wizard-talk.png", backgroundColor)
                                                            : Theme::hidpiFileName(":/client/theme/colored/wizard-talk.png");
 
-    _ui->slideShow->addSlide(wizardNextcloudIconFileName, tr("Keep your data secure and under your control"));
-    _ui->slideShow->addSlide(wizardFilesIconFileName, tr("Secure collaboration & file exchange"));
-    _ui->slideShow->addSlide(wizardGroupwareIconFileName, tr("Easy-to-use web mail, calendaring & contacts"));
-    _ui->slideShow->addSlide(wizardTalkIconFileName, tr("Screensharing, online meetings & web conferences"));
+    _ui->slideShow->addSlide(wizardNextcloudIconFileName, tr("Welcome to FIU's NextCloud Service"));
+    _ui->slideShow->addSlide(wizardFilesIconFileName, tr("Access your academic materials anytime, anywhere"));
+    _ui->slideShow->addSlide(wizardGroupwareIconFileName, tr("Collaborate with peers and faculty seamlessly"));
+    _ui->slideShow->addSlide(wizardTalkIconFileName, tr("Stay connected with FIU's community"));
 
     const auto isDarkBackground = Theme::isDarkColor(backgroundColor);
     _ui->slideShowNextButton->setIcon(theme->uiThemeIcon(QString("control-next.svg"), isDarkBackground));
@@ -95,16 +95,17 @@ void WelcomePage::setupLoginButton()
 
 void WelcomePage::setupCreateAccountButton()
 {
+    _ui->createAccountButton->setText(tr("Login to my FIU Server"));
 #ifdef WITH_WEBENGINE
+    // If your application is compiled with web engine support, you'll need to handle it as per your app's logic.
+    // For simplicity, I'm just opening the link here, but you might need to adjust it based on your app's flow.
     connect(_ui->createAccountButton, &QPushButton::clicked, this, [this](bool /*checked*/) {
-        _ocWizard->setRegistration(true);
-        _nextPage = WizardCommon::Page_WebView;
-        _ocWizard->next();
+        Utility::openBrowser(QStringLiteral("https://capstone-cloud2.cs.fiu.edu/"));
     });
-#else // WITH_WEBENGINE
-    connect(_ui->createAccountButton, &QPushButton::clicked, this, [this](bool /*checked*/) {
-        _ocWizard->setRegistration(true);
-        Utility::openBrowser(QStringLiteral("https://nextcloud.com/register"));
+#else // WITHOUT_WEBENGINE
+    // This will open the default web browser to the FIU server login page when the button is clicked.
+    connect(_ui->createAccountButton, &QPushButton::clicked, this, [](bool /*checked*/) {
+        Utility::openBrowser(QStringLiteral("https://capstone-cloud2.cs.fiu.edu/"));
     });
 #endif // WITH_WEBENGINE
 }
@@ -123,6 +124,71 @@ int WelcomePage::nextId() const
 
 void WelcomePage::customizeStyle()
 {
+    // Ensure that the stylesheet is applied to the whole wizard window
+    // Set a lighter blue background color for the overall widget
+    QString lighterBlueBackground = "#5F9EA0"; // Cadet Blue, a soft blue that should work well
+    _ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(lighterBlueBackground));
+    _ocWizard->setAttribute(Qt::WA_StyledBackground, true);
+
+    // Style the slideshow with a semi-transparent background and rounded corners
+    _ui->slideShow->setStyleSheet("QWidget { background-color: rgba(255, 255, 255, 150); border-radius: 10px; }");
+
+    // Style the slideshow with a semi-transparent background and rounded corners
+    _ui->slideShow->setStyleSheet("QWidget { background-color: rgba(255, 255, 255, 150); border-radius: 10px; }");
+
+    // Style the login button with FIU colors and a shadow effect
+    _ui->loginButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #002F65;
+            color: #F37021;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #013A6B;
+        }
+        QPushButton:pressed {
+            background-color: #012A4A;
+        }
+    )");
+
+    // Style the "Login to my FIU Server" button with a gold background and a shadow effect
+    _ui->createAccountButton->setText(tr("Login to my FIU Server"));
+    _ui->createAccountButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #F37021;
+            color: #002F65;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #F48031;
+        }
+        QPushButton:pressed {
+            background-color: #C06020;
+        }
+    )");
+
+    // Adjust the host-your-own-server label to be more subtle and match the new styling
+    _ui->hostYourOwnServerLabel->setStyleSheet("QLabel { color: #F37021; text-decoration: underline; }");
+
+    // Other style customizations
     styleSlideShow();
+
+    // Setup the custom behavior for the "Login to my FIU Server" button
+#ifdef WITH_WEBENGINE
+    connect(_ui->createAccountButton, &QPushButton::clicked, this, [this](bool /*checked*/) {
+        Utility::openBrowser(QStringLiteral("https://capstone-cloud2.cs.fiu.edu/"));
+    });
+#else // WITHOUT_WEBENGINE
+    connect(_ui->createAccountButton, &QPushButton::clicked, this, [](bool /*checked*/) {
+        Utility::openBrowser(QStringLiteral("https://capstone-cloud2.cs.fiu.edu/"));
+    });
+#endif // WITH_WEBENGINE
 }
+
 }

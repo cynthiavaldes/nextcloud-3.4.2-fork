@@ -109,11 +109,10 @@ Systray::Systray()
 
 #ifndef Q_OS_MAC
     auto contextMenu = new QMenu();
-    if (AccountManager::instance()->accounts().isEmpty()) {
-        contextMenu->addAction(tr("Add account"), this, &Systray::openAccountWizard);
-    } else {
-        contextMenu->addAction(tr("Open main dialog"), this, &Systray::openMainDialog);
-    }
+    // Always add the "Add account" action
+    contextMenu->addAction(tr("Add account"), this, &Systray::openAccountWizard);
+    // Optionally, you can still add the "Open main dialog" action
+    contextMenu->addAction(tr("Open main dialog"), this, &Systray::openMainDialog);
 
    auto studentResourcesAction = contextMenu->addAction(tr("Student Resources"), this, &Systray::openStudentResources);
 
