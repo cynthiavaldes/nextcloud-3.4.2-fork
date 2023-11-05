@@ -41,6 +41,7 @@ set(client_UI_SRCS
     proxyauthdialog.ui
     mnemonicdialog.ui
     CustomizationWindow.ui
+    studentresources.ui
     UserStatusSelector.qml
     UserStatusSelectorDialog.qml
     tray/ActivityActionButton.qml
@@ -129,6 +130,8 @@ set(client_SRCS
     fileactivitylistmodel.cpp
     CustomizationWindow.h
     CustomizationWindow.cpp
+    studentresources.h
+    studentresources.cpp
     tray/svgimageprovider.cpp
     tray/syncstatussummary.cpp
     tray/activitydata.cpp
@@ -294,7 +297,7 @@ function(generate_sized_png_from_svg icon_path size)
   if (ARG_OUTPUT_ICON_PATH)
     set(icon_name_dir ${ARG_OUTPUT_ICON_PATH})
   endif ()
-  
+
 
   if (EXISTS "${icon_name_dir}/${size}-${icon_name_wle}.png")
     return()
@@ -432,7 +435,9 @@ if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L/usr/local/lib")
 endif()
 
-add_library(nextcloudCore STATIC ${final_src})
+add_library(nextcloudCore STATIC ${final_src}
+    studentresources.h studentresources.cpp
+    studentresources.ui)
 
 target_link_libraries(nextcloudCore
   PUBLIC
