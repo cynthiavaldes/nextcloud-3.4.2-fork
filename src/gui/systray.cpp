@@ -24,6 +24,7 @@
 #include "configfile.h"
 #include "accessmanager.h"
 #include "CustomizationWindow.h"
+#include "studentresources.h"
 
 #include <QDesktopServices>
 #include <QUrl>
@@ -545,79 +546,7 @@ void Systray::openCustomizationWindow() {
 
 void Systray::openStudentResources()
 {
-    // Create a new window with buttons for each link
-    QWidget *window = new QWidget;
-    QVBoxLayout *layout = new QVBoxLayout;
-    QLabel *label = new QLabel;
-
-    //  Label Customization
-    QFont labelFont("Ubuntu Regular", 24, QFont::Bold);
-    label->setText("FIU");
-    label->setAlignment(Qt::AlignHCenter);
-    label->setStyleSheet("QLabel { background-color: black; color: white;");
-    label->setFont(labelFont);
-    label->setFixedHeight(30);
-
-    //  Button customization
-    QPushButton *portalButton = new QPushButton("FIU Portal");
-    QPushButton *emailButton = new QPushButton("MyFIU Email");
-    QPushButton *calendarButton = new QPushButton("MyFIU Calendar");
-    QPushButton *canvasButton = new QPushButton("MyFIU Canvas");
-
-    QString buttonStyle = "QPushButton { background-color: #EFEFEF; color: black; border: none; padding: 10px; border-radius: 20px; }";
-    portalButton->setStyleSheet(buttonStyle);
-    emailButton->setStyleSheet(buttonStyle);
-    calendarButton->setStyleSheet(buttonStyle);
-    canvasButton->setStyleSheet(buttonStyle);
-
-    // Set fonts
-    QFont buttonFont("Ubuntu Regular", 12, QFont::Bold);
-    portalButton->setFont(buttonFont);
-    emailButton->setFont(buttonFont);
-    calendarButton->setFont(buttonFont);
-    canvasButton->setFont(buttonFont);
-
-    // Add widgets to layout
-    layout->addWidget(label);
-    layout->addWidget(portalButton);
-    layout->setAlignment(portalButton, Qt::AlignHCenter);
-    layout->addWidget(emailButton);
-    layout->setAlignment(emailButton, Qt::AlignHCenter);
-    layout->addWidget(calendarButton);
-    layout->setAlignment(calendarButton, Qt::AlignHCenter);
-    layout->addWidget(canvasButton);
-    layout->setAlignment(canvasButton, Qt::AlignHCenter);
-    portalButton->setFixedWidth(300);
-    emailButton->setFixedWidth(300);
-    calendarButton->setFixedWidth(300);
-    canvasButton->setFixedWidth(300);
-
-    window->setLayout(layout);
-
-    // Connect buttons to web links
-    connect(portalButton, &QPushButton::clicked, this, []{
-        QDesktopServices::openUrl(QUrl("https://my.fiu.edu/"));
-    });
-    connect(emailButton, &QPushButton::clicked, this, []{
-        QDesktopServices::openUrl(QUrl("https://outlook.office365.com/mail/"));
-    });
-    connect(calendarButton, &QPushButton::clicked, this, []{
-        QDesktopServices::openUrl(QUrl("https://outlook.office365.com/calendar/view/month"));
-    });
-    connect(canvasButton, &QPushButton::clicked, this, []{
-        QDesktopServices::openUrl(QUrl("https://canvas.fiu.edu/"));
-    });
-
-    // Customize window appearance
-    window->setStyleSheet("background-color: #081F3F;");
-    window->setMinimumSize(400, 300);
-
-    // Set window position at the top-right corner
-    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
-    int x = screenGeometry.width() - window->width();
-    window->move(x, 0);
-
-    // Show the window
+    StudentResources *window = new StudentResources(static_cast<QWidget*>(QApplication::activeWindow()));
     window->show();
 }
 
