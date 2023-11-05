@@ -17,7 +17,8 @@ public:
 
 private:
     Ui::CustomizationWindow *ui;
+    void FillComboBox();
+    void ChangeTheme();
 };
 
 #endif // CUSTOMIZATIONWINDOW_H
-
