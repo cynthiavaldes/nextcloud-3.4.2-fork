@@ -41,7 +41,7 @@ set(client_UI_SRCS
     proxyauthdialog.ui
     mnemonicdialog.ui
     CustomizationWindow.ui
-    studentresources.ui
+    personaltab.ui
     UserStatusSelector.qml
     UserStatusSelectorDialog.qml
     tray/ActivityActionButton.qml
@@ -130,8 +130,8 @@ set(client_SRCS
     fileactivitylistmodel.cpp
     CustomizationWindow.h
     CustomizationWindow.cpp
-    studentresources.h
-    studentresources.cpp
+    personaltab.h
+    personaltab.cpp
     tray/svgimageprovider.cpp
     tray/syncstatussummary.cpp
     tray/activitydata.cpp
