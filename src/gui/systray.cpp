@@ -24,7 +24,7 @@
 #include "configfile.h"
 #include "accessmanager.h"
 #include "CustomizationWindow.h"
-#include "studentresources.h"
+#include "personaltab.h"
 
 #include <QDesktopServices>
 #include <QUrl>
@@ -52,6 +52,7 @@
 #define NOTIFICATIONS_PATH "/org/freedesktop/Notifications"
 #define NOTIFICATIONS_IFACE "org.freedesktop.Notifications"
 #endif
+
 
 namespace OCC {
 
@@ -115,9 +116,9 @@ Systray::Systray()
     // Optionally, you can still add the "Open main dialog" action
     contextMenu->addAction(tr("Open main dialog"), this, &Systray::openMainDialog);
 
-   auto studentResourcesAction = contextMenu->addAction(tr("Student Resources"), this, &Systray::openStudentResources);
+    auto personalTabAction = contextMenu->addAction(tr("Personal Tab"), this, &Systray::openPersonalTab);
 
-      setContextMenu(contextMenu);
+    setContextMenu(contextMenu);
 
     auto pauseAction = contextMenu->addAction(tr("Pause sync"), this, &Systray::slotPauseAllFolders);
     auto resumeAction = contextMenu->addAction(tr("Resume sync"), this, &Systray::slotUnpauseAllFolders);
@@ -160,6 +161,7 @@ Systray::Systray()
 
 void Systray::create()
 {
+
     if (_trayEngine) {
         if (!AccountManager::instance()->accounts().isEmpty()) {
             _trayEngine->rootContext()->setContextProperty("activityModel", UserModel::instance()->currentActivityModel());
@@ -544,9 +546,9 @@ void Systray::openCustomizationWindow() {
     window->show();
 }
 
-void Systray::openStudentResources()
+void Systray::openPersonalTab()
 {
-    StudentResources *window = new StudentResources(static_cast<QWidget*>(QApplication::activeWindow()));
+    PersonalTab *window = new PersonalTab(static_cast<QWidget*>(QApplication::activeWindow()));
     window->show();
 }
 
