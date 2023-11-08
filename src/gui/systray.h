@@ -93,7 +93,7 @@ signals:
 
 public slots:
     void slotNewUserSelected();
-    void openStudentResources();
+    void openPersonalTab();
 
 private slots:
     void slotUnpauseAllFolders();
