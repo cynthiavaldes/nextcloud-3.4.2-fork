@@ -2,6 +2,12 @@
 #define CUSTOMIZATIONWINDOW_H
 
 #include <QDialog>
+#include <QObject>
+#include <QtCore>
+
+extern bool isFiu;
+extern bool isBeige;
+extern bool isDark;
 
 namespace Ui {
 class CustomizationWindow;
@@ -15,10 +21,14 @@ public:
     explicit CustomizationWindow(QWidget *parent = nullptr);
     ~CustomizationWindow();
 
+private slots:
+    void on_ThemeResetButton_clicked();
+    void on_ThemeApplyButton_clicked();
+    void on_ThemeEditButton_clicked();
+
 private:
     Ui::CustomizationWindow *ui;
-    void FillComboBox();
-    void ChangeTheme();
 };
 
 #endif // CUSTOMIZATIONWINDOW_H
+
