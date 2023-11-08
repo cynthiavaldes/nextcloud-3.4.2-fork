@@ -1,7 +1,17 @@
 #include "CustomizationWindow.h"
+#include "systray.h"
 #include "ui_CustomizationWindow.h"
 
+#include <QProcess>
 #include <QDir>
+#include <QComboBox>
+#include <QFileDialog>
+#include <QDebug>
+
+bool isFiu;
+bool isBeige;
+bool isDark;
+
 
 CustomizationWindow::CustomizationWindow(QWidget *parent) :
     QDialog(parent),
@@ -17,25 +27,40 @@ CustomizationWindow::~CustomizationWindow()
     delete ui;
 }
 
-void CustomizationWindow::ChangeTheme()
+void CustomizationWindow::on_ThemeApplyButton_clicked()
 {
-    /*
-    QDir filename = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    //const auto filename = QFileDialog::getExistingDirectory(this);
-    if (filename.isEmpty()) {
-        return;
+    if(ui->LoginFiuRadioButton->isChecked()){
+        isFiu = true;
+        isBeige = false;
+        isDark = false;
+        QProcess process;
+        process.execute("echo " + QVariant(isFiu).toString());
+    } else if (ui->LoginBeigeRadioButton->isChecked()){
+        isBeige = true;
+        isFiu = false;
+        isDark = false;
+        QProcess process;
+        process.execute("echo " + QVariant(isBeige).toString());
+    } else if(ui->LoginDarkRadioButton->isChecked()){
+        isDark = true;
+        isFiu = false;
+        isBeige = false;
+        QProcess process;
+        process.execute("echo " + QVariant(isDark).toString());
     }
-
-    QDir tempFilename = filename;
-    QDir dir =QDir("/home/cynth/theme");
-    */
 }
 
-void CustomizationWindow::FillComboBox()
+void CustomizationWindow::on_ThemeResetButton_clicked()
 {
-    QDir const filename = QDir("/home/cynth/themes");
-    for(const auto& i : filename.entryList() )
-    {
-        ui->GeneralThemeComboBox->addItem(i);
-    }
+    isFiu = false;
+    isBeige = false;
+    isDark = false;
 }
+
+
+
+void CustomizationWindow::on_ThemeEditButton_clicked()
+{
+
+}
+
