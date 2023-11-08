@@ -82,77 +82,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>290</y>
-     <width>231</width>
-     <height>135</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="ColorSettingsVerticalLayout">
-    <item>
-     <widget class="QGroupBox" name="ColorSettingsGroupBox">
-      <property name="title">
-       <string>Color</string>
-      </property>
-      <widget class="QRadioButton" name="ColorRedRadioButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>112</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Red</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="ColorYellowRadioButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>112</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Yellow</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="ColorBeigeRadioButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>80</y>
-         <width>112</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Beige</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="ColorDarkRadioButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>110</y>
-         <width>112</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Dark</string>
-       </property>
-      </widget>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -202,28 +131,15 @@
    </property>
    <layout class="QVBoxLayout" name="LoginCustomVerticalLayout">
     <item>
-     <widget class="QGroupBox" name="LoginCustomGroupBox">
+     <widget class="QGroupBox" name="LoginCustomGroup">
       <property name="title">
-       <string>Login Page</string>
+       <string>Login Theme</string>
       </property>
-      <widget class="QRadioButton" name="LoginNextcloudRadioButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>112</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Nextcloud</string>
-       </property>
-      </widget>
       <widget class="QRadioButton" name="LoginFiuRadioButton">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
+         <y>20</y>
          <width>112</width>
          <height>23</height>
         </rect>
@@ -236,7 +152,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>80</y>
+         <y>50</y>
          <width>112</width>
          <height>23</height>
         </rect>
@@ -249,7 +165,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>110</y>
+         <y>80</y>
          <width>112</width>
          <height>23</height>
         </rect>
@@ -284,12 +200,130 @@
      </rect>
     </property>
     <property name="text">
-     <string>Customization settings allows for the personalization of the overall colors, images, and buttons of Nextcloud.</string>
+     <string>Customization settings allows for the personalization of the colors, images, and buttons of Nextcloud.</string>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
     </property>
    </widget>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>231</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="ThemeSysTrayVerticalLayout">
+    <item>
+     <widget class="QGroupBox" name="ThemeSysTrayGroup">
+      <property name="title">
+       <string>System Tray Theme</string>
+      </property>
+      <widget class="QPushButton" name="ThemeEditButton">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>90</y>
+         <width>89</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Edit</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="TrayThemeFiuButton">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>FIU</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="TrayThemeNcButton">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>60</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nextcloud</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="TrayThemeBeigeButton">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>30</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Beige</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="TrayThemeDarkButton">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>60</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Dark</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="ThemeSysTrayLabelGroup">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>80</y>
+         <width>120</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string/>
+       </property>
+       <widget class="QLabel" name="ThemeSystrayLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>111</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Edit your own tab button functions</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <customwidgets>
