@@ -18,7 +18,6 @@ CustomizationWindow::CustomizationWindow(QWidget *parent) :
     ui(new Ui::CustomizationWindow)
 {
     ui->setupUi(this);
-    FillComboBox();
 }
 
 
