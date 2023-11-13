@@ -29,7 +29,13 @@ if( UNIX AND NOT APPLE )
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/syncstate_nemo.py DESTINATION ${CMAKE_INSTALL_DATADIR}/nemo-python/extensions RENAME syncstate-${APPLICATION_SHORTNAME}.py)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/syncstate_caja.py DESTINATION ${CMAKE_INSTALL_DATADIR}/caja-python/extensions RENAME syncstate-${APPLICATION_SHORTNAME}.py)
     
-    
+    # Set permissions for the install_nextcloud_extension.sh script
+    set(INSTALL_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/install_nextcloud_extension.sh")
+    file(CHMOD ${INSTALL_SCRIPT} PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ)
 
+    # Add custom command to install the Nextcloud Nautilus extension
+    add_custom_target(install_nextcloud_extension ALL
+                      COMMAND ${INSTALL_SCRIPT}
+                      COMMENT "Installing Nextcloud Nautilus extension")
 endif()
 
