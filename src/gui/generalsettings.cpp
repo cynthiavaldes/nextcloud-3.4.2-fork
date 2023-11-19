@@ -46,6 +46,8 @@
 #include <QDir>
 #include <QScopedValueRollback>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include <private/qzipwriter_p.h>
 
@@ -178,8 +180,15 @@ GeneralSettings::GeneralSettings(QWidget *parent)
     // About legal notice
     connect(_ui->legalNoticeButton, &QPushButton::clicked, this, &GeneralSettings::slotShowLegalNotice);
 
-    // theme selection
-    connect(_ui->themeButton, &QPushButton::clicked, this, &GeneralSettings::customizeTheme);
+    // Customer Service Website
+    connect(_ui->CSCButton, &QPushButton::clicked, this, []() {
+        QDesktopServices::openUrl(QUrl("https://nextcloud.com/contact/"));
+    });
+
+    // Documentation Website
+    connect(_ui->DocButton, &QPushButton::clicked, this, []() {
+        QDesktopServices::openUrl(QUrl("https://nextcloud.com/support/"));
+    });
 
     loadMiscSettings();
     // updater info now set in: customizeStyle

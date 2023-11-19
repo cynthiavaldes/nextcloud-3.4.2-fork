@@ -130,6 +130,12 @@ Systray::Systray()
     contextMenu->addAction(tr("Customization"), this, &Systray::openCustomizationWindow);
 
     contextMenu->addAction(tr("Settings"), this, &Systray::openSettings);
+
+    // Report Issue link option
+    contextMenu->addAction(tr("Report Issue"), this, []{
+        QDesktopServices::openUrl(QUrl("https://github.com/nextcloud/server/issues"));
+    });
+
     contextMenu->addAction(tr("Exit %1").arg(Theme::instance()->appNameGUI()), this, &Systray::shutdown);
     setContextMenu(contextMenu);
 
