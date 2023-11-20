@@ -41,7 +41,7 @@
     <item>
      <widget class="QGroupBox" name="GeneralThemeSlideShowComboBox">
       <property name="title">
-       <string>General Theme</string>
+       <string>Icon Theme</string>
       </property>
       <widget class="OCC::SlideShow" name="GeneralThemeSlideshow" native="true">
        <property name="enabled">
@@ -174,6 +174,45 @@
         <string>Dark</string>
        </property>
       </widget>
+      <widget class="QRadioButton" name="LoginBlueRadioButton">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Blue</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="LoginYellowRadioButton">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>80</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Yellow</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="LoginRedRadioButton">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>50</y>
+         <width>112</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Red</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -220,9 +259,9 @@
     <item>
      <widget class="QGroupBox" name="ThemeSysTrayGroup">
       <property name="title">
-       <string>System Tray Theme</string>
+       <string>User Buttons Theme</string>
       </property>
-      <widget class="QPushButton" name="ThemeEditButton">
+      <widget class="QPushButton" name="ThemeCreateButton">
        <property name="geometry">
         <rect>
          <x>130</x>
@@ -232,14 +271,14 @@
         </rect>
        </property>
        <property name="text">
-        <string>Edit</string>
+        <string>Create</string>
        </property>
       </widget>
       <widget class="QRadioButton" name="TrayThemeFiuButton">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>30</y>
+         <x>10</x>
+         <y>20</y>
          <width>112</width>
          <height>23</height>
         </rect>
@@ -248,25 +287,25 @@
         <string>FIU</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="TrayThemeNcButton">
+      <widget class="QRadioButton" name="TrayThemeBlueButton">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>60</y>
+         <x>10</x>
+         <y>50</y>
          <width>112</width>
          <height>23</height>
         </rect>
        </property>
        <property name="text">
-        <string>Nextcloud</string>
+        <string>Blue</string>
        </property>
       </widget>
       <widget class="QRadioButton" name="TrayThemeBeigeButton">
        <property name="geometry">
         <rect>
-         <x>110</x>
-         <y>30</y>
-         <width>112</width>
+         <x>130</x>
+         <y>20</y>
+         <width>81</width>
          <height>23</height>
         </rect>
        </property>
@@ -277,9 +316,9 @@
       <widget class="QRadioButton" name="TrayThemeDarkButton">
        <property name="geometry">
         <rect>
-         <x>110</x>
-         <y>60</y>
-         <width>112</width>
+         <x>130</x>
+         <y>50</y>
+         <width>81</width>
          <height>23</height>
         </rect>
        </property>
@@ -290,9 +329,9 @@
       <widget class="QGroupBox" name="ThemeSysTrayLabelGroup">
        <property name="geometry">
         <rect>
-         <x>0</x>
+         <x>10</x>
          <y>80</y>
-         <width>120</width>
+         <width>101</width>
          <height>41</height>
         </rect>
        </property>
@@ -304,17 +343,20 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>111</width>
+          <width>81</width>
           <height>31</height>
          </rect>
         </property>
         <property name="font">
          <font>
-          <pointsize>9</pointsize>
+          <pointsize>11</pointsize>
          </font>
         </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
         <property name="text">
-         <string>Edit your own tab button functions</string>
+         <string>Add Button Functions</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
