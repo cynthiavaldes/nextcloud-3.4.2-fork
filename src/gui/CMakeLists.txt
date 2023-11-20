@@ -42,6 +42,7 @@ set(client_UI_SRCS
     mnemonicdialog.ui
     CustomizationWindow.ui
     personaltab.ui
+    addbuttonwindow.ui
     UserStatusSelector.qml
     UserStatusSelectorDialog.qml
     tray/ActivityActionButton.qml
@@ -132,6 +133,8 @@ set(client_SRCS
     CustomizationWindow.cpp
     personaltab.h
     personaltab.cpp
+    addbuttonwindow.h
+    addbuttonwindow.cpp
     tray/svgimageprovider.cpp
     tray/syncstatussummary.cpp
     tray/activitydata.cpp
