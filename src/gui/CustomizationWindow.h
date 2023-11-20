@@ -8,6 +8,9 @@
 extern bool isFiu;
 extern bool isBeige;
 extern bool isDark;
+extern bool isBlue;
+extern bool isRed;
+extern bool isYellow;
 
 namespace Ui {
 class CustomizationWindow;
@@ -24,7 +27,7 @@ public:
 private slots:
     void on_ThemeResetButton_clicked();
     void on_ThemeApplyButton_clicked();
-    void on_ThemeEditButton_clicked();
+    void on_ThemeCreateButton_clicked();
 
 private:
     Ui::CustomizationWindow *ui;
