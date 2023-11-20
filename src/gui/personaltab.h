@@ -16,9 +16,14 @@ class PersonalTab : public QDialog
 public:
     explicit PersonalTab(QWidget *parent = nullptr);
     ~PersonalTab();
+    void defaultNextcloudTheme();
+    void makeCustomButton(int amount);
 private:
     Ui::PersonalTab *ui;
-    
+    void fiuTheme();
+    void beigeTheme(int amount);
+    void darkTheme(int amount);
+    void blueTheme(int amount);
 };
 
 #endif // PERSONALTAB_H
