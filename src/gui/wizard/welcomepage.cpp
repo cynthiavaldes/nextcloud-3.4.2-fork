@@ -150,8 +150,8 @@ void WelcomePage::customizeStyle()
     if(isFiu == true){
 // Ensure that the stylesheet is applied to the whole wizard window
 // Set a lighter blue background color for the overall widget
-QString lighterBlueBackground = "#5F9EA0"; // Cadet Blue, a soft blue that should work well
-_ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(lighterBlueBackground));
+QString fiuBlueBackground = "#081E3F"; // Cadet Blue, a soft blue that should work well
+_ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(fiuBlueBackground));
 _ocWizard->setAttribute(Qt::WA_StyledBackground, true);
 
        // Style the slideshow with a semi-transparent background and rounded corners
@@ -164,7 +164,7 @@ _ui->slideShow->setStyleSheet("QWidget { background-color: rgba(255, 255, 255, 1
 _ui->loginButton->setStyleSheet(R"(
         QPushButton {
             background-color: #002F65;
-            color: #F37021;
+            color: #B6862C;
             border: none;
             padding: 10px;
             border-radius: 5px;
@@ -182,18 +182,18 @@ _ui->loginButton->setStyleSheet(R"(
 _ui->createAccountButton->setText(tr("Login to my FIU Server"));
 _ui->createAccountButton->setStyleSheet(R"(
         QPushButton {
-            background-color: #F37021;
-            color: #002F65;
+            background-color: #002F65;
+            color: #B6862C;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-weight: bold;
         }
         QPushButton:hover {
-            background-color: #F48031;
+            background-color: #013A6B;
         }
         QPushButton:pressed {
-            background-color: #C06020;
+            background-color: #012A4A;
         }
     )");
 
@@ -214,40 +214,40 @@ connect(_ui->createAccountButton, &QPushButton::clicked, this, [this](bool /*che
     });
 #endif // WITH_WEBENGINE
     } else if(isBeige == true){
-QString beigeBackground = "#FFFBEC";
+QString beigeBackground = "#B0926A";
 _ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(beigeBackground));
 _ocWizard->setAttribute(Qt::WA_StyledBackground, true);
 
 _ui->loginButton->setStyleSheet(R"(
         QPushButton {
-            background-color: #FFF7D6;
-            color: #5a5a5a;
+            background-color: #E1C78F;
+            color: #706233;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-weight: bold;
         }
         QPushButton:hover {
-            background-color: #FFFBE9;
+            background-color: #ebcf94;
         }
         QPushButton:pressed {
-            background-color: #FFF3C3;
+            background-color: #d4ba85;
         }
     )");
 _ui->createAccountButton->setStyleSheet(R"(
         QPushButton {
-            background-color: #FFF7D6;
-            color: #5a5a5a;
+            background-color: #E1C78F;
+            color: #706233;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-weight: bold;
         }
         QPushButton:hover {
-            background-color: #FFFBE9;
+            background-color: #ebcf94;
         }
         QPushButton:pressed {
-            background-color: #FFF3C3;
+            background-color: #d4ba85;
         }
     )");
 _ui->hostYourOwnServerLabel->setStyleSheet("QLabel { color: #5a5a5a; text-decoration: underline; }");
@@ -259,15 +259,15 @@ _ocWizard->setAttribute(Qt::WA_StyledBackground, true);
 
 _ui->loginButton->setStyleSheet(R"(
         QPushButton {
-            background-color: #4b4b4b;
-            color: #000000;
+            background-color: #2b2b2b;
+            color: #dedede;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-weight: bold;
         }
         QPushButton:hover {
-            background-color: #666666;
+            background-color: #363636;
         }
         QPushButton:pressed {
             background-color: #3f3f3f;
@@ -275,18 +275,135 @@ _ui->loginButton->setStyleSheet(R"(
     )");
 _ui->createAccountButton->setStyleSheet(R"(
         QPushButton {
-            background-color: #4b4b4b;
-            color: #000000;
+            background-color: #2b2b2b;
+            color: #dedede;
             border: none;
             padding: 10px;
             border-radius: 5px;
             font-weight: bold;
         }
         QPushButton:hover {
-            background-color: #666666;
+            background-color: #363636;
         }
         QPushButton:pressed {
             background-color: #3f3f3f;
+        }
+    )");
+_ui->hostYourOwnServerLabel->setStyleSheet("QLabel { color: #000000; text-decoration: underline; }");
+styleSlideShow();
+    } else if(isBlue == true){
+QString blueBackground = "#427D9D";
+_ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(blueBackground));
+_ocWizard->setAttribute(Qt::WA_StyledBackground, true);
+
+_ui->loginButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #164863;
+            color: #DDF2FD;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #195373;
+        }
+        QPushButton:pressed {
+            background-color: #103447;
+        }
+    )");
+_ui->createAccountButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #164863;
+            color: #DDF2FD;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #195373;
+        }
+        QPushButton:pressed {
+            background-color: #103447;
+        }
+    )");
+_ui->hostYourOwnServerLabel->setStyleSheet("QLabel { color: #000000; text-decoration: underline; }");
+styleSlideShow();
+    } else if(isRed == true){
+QString redBackground = "#872341";
+_ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(redBackground));
+_ocWizard->setAttribute(Qt::WA_StyledBackground, true);
+
+_ui->loginButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #22092C;
+            color: #F05941;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #BE3144;
+        }
+        QPushButton:pressed {
+            background-color: #22092C;
+        }
+    )");
+_ui->createAccountButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #22092C;
+            color: #F05941;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #BE3144;
+        }
+        QPushButton:pressed {
+            background-color: #22092C;
+        }
+    )");
+_ui->hostYourOwnServerLabel->setStyleSheet("QLabel { color: #000000; text-decoration: underline; }");
+styleSlideShow();
+    } else if(isYellow == true){
+QString yellowBackground = "#1A5D1A";
+_ocWizard->setStyleSheet(QString("QWizard { background-color: %1; }").arg(yellowBackground));
+_ocWizard->setAttribute(Qt::WA_StyledBackground, true);
+
+_ui->loginButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #FBD85D;
+            color: #1A5D1A;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #FAE392;
+        }
+        QPushButton:pressed {
+            background-color: #F1C93B;
+        }
+    )");
+_ui->createAccountButton->setStyleSheet(R"(
+        QPushButton {
+            background-color: #FBD85D;
+            color: #1A5D1A;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #FAE392;
+        }
+        QPushButton:pressed {
+            background-color: #F1C93B;
         }
     )");
 _ui->hostYourOwnServerLabel->setStyleSheet("QLabel { color: #000000; text-decoration: underline; }");
