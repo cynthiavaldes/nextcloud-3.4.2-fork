@@ -544,7 +544,9 @@ target_link_libraries(nextcloud PRIVATE nextcloudCore)
 
 if(TARGET PkgConfig::CLOUDPROVIDERS)
     message("Building with libcloudproviderssupport")
-    target_sources(nextcloudCore PRIVATE cloudproviders/cloudprovidermanager.cpp cloudproviders/cloudproviderwrapper.cpp)
+    target_sources(nextcloudCore PRIVATE cloudproviders/cloudprovidermanager.cpp cloudproviders/cloudproviderwrapper.cpp
+        addbuttonwindow.ui
+        addbuttonwindow.ui)
 
     string(TOLOWER "${APPLICATION_VENDOR}" DBUS_VENDOR)
     string(REGEX REPLACE "[^A-z0-9]" "" DBUS_VENDOR "${DBUS_VENDOR}")
