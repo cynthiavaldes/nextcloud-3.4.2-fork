@@ -18,6 +18,8 @@
 #include "theme.h"
 #include "configfile.h"
 #include "application.h"
+#include "CustomizationWindow.h"
+#include "personaltab.h"
 #include "configfile.h"
 #include "owncloudsetupwizard.h"
 #include "accountmanager.h"
@@ -40,6 +42,7 @@
 
 #include "legalnotice.h"
 
+#include <QShortcut>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QNetworkProxy>
@@ -151,7 +154,11 @@ GeneralSettings::GeneralSettings(QWidget *parent)
     _ui->serverNotificationsCheckBox->setToolTip(tr("Server notifications that require attention."));
 
     connect(_ui->showInExplorerNavigationPaneCheckBox, &QAbstractButton::toggled, this, &GeneralSettings::slotShowInExplorerNavigationPane);
-
+    auto shortcut1 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_P), this); //personal tab
+    QObject::connect(shortcut1, &QShortcut::activated, this, [ this ] { openPersonalTab(); } );
+    auto shortcut2 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_C), this); //general settings
+    QObject::connect(shortcut2, &QShortcut::activated, this, [ this ] { openCustomization(); } );
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q), this, SLOT(close())); //close
     // Rename 'Explorer' appropriately on non-Windows
 #ifdef Q_OS_MAC
     QString txt = _ui->showInExplorerNavigationPaneCheckBox->text();
@@ -184,6 +191,8 @@ GeneralSettings::GeneralSettings(QWidget *parent)
     connect(_ui->CSCButton, &QPushButton::clicked, this, []() {
         QDesktopServices::openUrl(QUrl("https://nextcloud.com/contact/"));
     });
+
+    connect(_ui->monoIconsCheckBox, &QAbstractButton::toggled, this, &GeneralSettings::saveMiscSettings);
 
     // Documentation Website
     connect(_ui->DocButton, &QPushButton::clicked, this, []() {
@@ -455,67 +464,6 @@ void GeneralSettings::slotStyleChanged()
     customizeStyle();
 }
 
-void GeneralSettings::customizeTheme()
-{
-    QDir filename = QFileDialog::getExistingDirectory(this, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    //const auto filename = QFileDialog::getExistingDirectory(this);
-    if (filename.isEmpty()) {
-        return;
-    }
-
-    QDir tempFilename = filename;
-    QDir dir =QDir("~/theme");
-
-    dir.mkdir("black");
-    dir.cd("black");
-    tempFilename.cd("black");
-    QStringList files = dir.entryList(QDir::Files);
-    foreach(QString name, files) {
-        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
-    }
-    dir =QDir("~/theme");
-    tempFilename = filename;
-
-    dir.mkdir("colored");
-    dir.cd("colored");
-    tempFilename.cd("colored");
-    files = dir.entryList(QDir::Files);
-    foreach(QString name, files) {
-        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
-    }
-    dir =QDir("~/theme");
-    tempFilename = filename;
-
-    dir.mkdir("Style");
-    dir.cd("Style");
-    tempFilename.cd("Style");
-    files = dir.entryList(QDir::Files);
-    foreach(QString name, files) {
-        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
-    }
-    dir =QDir("~/theme");
-    tempFilename = filename;
-
-    dir.mkdir("white");
-    dir.cd("white");
-    tempFilename.cd("white");
-    files = dir.entryList(QDir::Files);
-    foreach(QString name, files) {
-        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
-    }
-    dir =QDir("~/theme");
-    tempFilename = filename;
-
-    files = filename.entryList(QDir::Files);
-
-    foreach(QString name, files) {
-        QFile::copy(tempFilename.currentPath() + "/" + name, dir.currentPath() + "/" + name);
-    }
-
-    //createDebugArchive(filename);
-    //QMessageBox::information(this, tr("Debug Archive Created"), tr("Debug archive is created at %1").arg(filename));
-}
-
 void GeneralSettings::customizeStyle()
 {
     // setup about section
@@ -531,6 +479,18 @@ void GeneralSettings::customizeStyle()
 #endif
 }
 
+void GeneralSettings::openCustomization()
+{
+    close();
+    CustomizationWindow *window = new CustomizationWindow(static_cast<QWidget*>(QApplication::activeWindow()));
+    window->show();
+}
+void GeneralSettings::openPersonalTab()
+{
+    close();
+    PersonalTab *window = new PersonalTab(static_cast<QWidget*>(QApplication::activeWindow()));
+    window->show();
+}
 
 
 } // namespace OCC

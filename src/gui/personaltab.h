@@ -2,6 +2,7 @@
 #define PERSONALTAB_H
 
 #include <QDialog>
+#include <QWidget>
 #include <QObject>
 #include <QtCore>
 
@@ -20,6 +21,8 @@ public:
     void makeCustomButton(int amount);
 private:
     Ui::PersonalTab *ui;
+    void openCustomization();
+    void openGeneralSettings();
     void fiuTheme();
     void beigeTheme(int amount);
     void darkTheme(int amount);

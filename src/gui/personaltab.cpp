@@ -1,7 +1,10 @@
 #include "personaltab.h"
 #include "ui_personaltab.h"
 #include "addbuttonwindow.h"
+#include "CustomizationWindow.h"
+#include "generalsettings.h"
 
+#include <QShortcut>
 #include <QDir>
 #include <QDebug>
 #include <QProcess>
@@ -9,6 +12,7 @@
 #include <string>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QFileDialog>
 #include <QDesktopServices>
 #include <QLabel>
 
@@ -17,6 +21,7 @@ PersonalTab::PersonalTab(QWidget *parent) :
     ui(new Ui::PersonalTab)
 {
     ui->setupUi(this);
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q), this, SLOT(close())); //close
     //All cases for different themes
     switch(status)
     {
@@ -42,6 +47,7 @@ PersonalTab::PersonalTab(QWidget *parent) :
         defaultNextcloudTheme();
         break;
     }
+
 }
 
 PersonalTab::~PersonalTab()
@@ -391,6 +397,8 @@ void PersonalTab::blueTheme(int amount)
 void PersonalTab::makeCustomButton(int amount)
 {
     if(amount == 1){
+        auto shortcut1 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_1), this); //general settings
+        QObject::connect(shortcut1, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink1));} );
         ui->button1->setVisible(true);
         ui->button2->setVisible(false);
         ui->button3->setVisible(false);
@@ -400,6 +408,10 @@ void PersonalTab::makeCustomButton(int amount)
             QDesktopServices::openUrl(QUrl(buttonLink1));
         });
     }else if(amount == 2){
+        auto shortcut1 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_1), this); //general settings
+        QObject::connect(shortcut1, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink1));} );
+        auto shortcut2 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_2), this); //general settings
+        QObject::connect(shortcut2, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink2));} );
         ui->button1->setVisible(true);
         ui->button2->setVisible(true);
         ui->button3->setVisible(false);
@@ -413,6 +425,12 @@ void PersonalTab::makeCustomButton(int amount)
             QDesktopServices::openUrl(QUrl(buttonLink2));
         });
     }else if(amount == 3){
+        auto shortcut1 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_1), this); //general settings
+        QObject::connect(shortcut1, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink1));} );
+        auto shortcut2 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_2), this); //general settings
+        QObject::connect(shortcut2, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink2));} );
+        auto shortcut3 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_3), this); //general settings
+        QObject::connect(shortcut3, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink3));} );
         ui->button1->setVisible(true);
         ui->button2->setVisible(true);
         ui->button3->setVisible(true);
@@ -432,6 +450,14 @@ void PersonalTab::makeCustomButton(int amount)
             QDesktopServices::openUrl(QUrl(buttonLink3));
         });
     }else if(amount == 4){
+        auto shortcut1 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_1), this); //general settings
+        QObject::connect(shortcut1, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink1));} );
+        auto shortcut2 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_2), this); //general settings
+        QObject::connect(shortcut2, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink2));} );
+        auto shortcut3 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_3), this); //general settings
+        QObject::connect(shortcut3, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink3));} );
+        auto shortcut4 = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_4), this); //general settings
+        QObject::connect(shortcut1, &QShortcut::activated, this, [ this ] { QDesktopServices::openUrl(QUrl(buttonLink1));} );
         ui->button1->setVisible(true);
         ui->button2->setVisible(true);
         ui->button3->setVisible(true);
@@ -453,4 +479,14 @@ void PersonalTab::makeCustomButton(int amount)
             QDesktopServices::openUrl(QUrl(buttonLink4));
         });
     }
+}
+
+void openCustomization(){
+    CustomizationWindow *window = new CustomizationWindow(static_cast<QWidget*>(QApplication::activeWindow()));
+    window->show();
+}
+
+void openGeneralSettings(){
+    OCC::GeneralSettings *window = new OCC::GeneralSettings(static_cast<QWidget*>(QApplication::activeWindow()));
+    window->show();
 }

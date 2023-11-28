@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QtCore>
 
+extern bool themeFiu;
 extern bool isFiu;
 extern bool isBeige;
 extern bool isDark;
@@ -31,6 +32,9 @@ private slots:
 
 private:
     Ui::CustomizationWindow *ui;
+    void fillComboBox();
+    void openMainDialog();
+    void openPersonalTab();
 };
 
 #endif // CUSTOMIZATIONWINDOW_H

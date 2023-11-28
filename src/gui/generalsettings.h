@@ -60,7 +60,8 @@ private slots:
 
 private:
     void customizeStyle();
-    void customizeTheme();
+    void openPersonalTab();
+    void openCustomization();
 
     Ui::GeneralSettings *_ui;
     QPointer<IgnoreListEditor> _ignoreEditor;
